@@ -55,7 +55,7 @@
         modules = [
           configuration
           ./system.nix
-          ./homebrew.nix
+          ./brew.nix
           home-manager.darwinModules.home-manager
           {
             home-manager = {
