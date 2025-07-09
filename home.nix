@@ -187,6 +187,8 @@ compinit
 
 eval "$(direnv hook zsh)"
 
+eval "$(env /opt/homebrew/bin/brew shellenv)"
+
 export PNPM_HOME="$HOME/.local/share/pnpm"
 export PATH="$PNPM_HOME:$PATH"
 	  '';
