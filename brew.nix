@@ -14,6 +14,7 @@
       "mongodb/brew"
       "derailed/k9s"
       "th-ch/youtube-music"
+      "pulumi/tap"
     ];
 
     # `brew install`
@@ -27,6 +28,7 @@
       "llvm"
       "libomp"
       "pngpaste"
+      "pulumi"
     ];
 
     # `brew install --cask`
@@ -34,6 +36,7 @@
       let
         packages = [
           "arc"
+          # "thebrowsercompany-dia"
           "betterdisplay"
           "bruno"
           "chatgpt"

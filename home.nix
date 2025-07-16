@@ -33,14 +33,6 @@
       ripgrep
       sops
       sqlfluff
-      # c / c++
-      clang
-      clang-tools
-      cmake-language-server
-      cmake
-      darwin.dyld
-      ninja
-      platformio
       # bash
       bash-language-server
       shfmt
@@ -53,7 +45,6 @@
       # java
       jdk
       # js
-      biome
       bun
       deno
       pnpm
@@ -168,30 +159,28 @@
         kk = "kubectl";
         k = "kubectl -n expand";
         ks = "kubectl -n expand-staging";
-claude="/Users/jpowers/.claude/local/claude";
-clup="(cd /Users/jpowers/.claude/local && pnpm up --latest)";
       };
 
       initContent = ''
-HISTFILE=~/.histfile
-HISTSIZE=10000
-SAVEHIST=10000
+        HISTFILE=~/.histfile
+        HISTSIZE=10000
+        SAVEHIST=10000
 
-setopt autocd extendedglob nomatch notify
-unsetopt beep
-bindkey -v
+        setopt autocd extendedglob nomatch notify
+        unsetopt beep
+        bindkey -v
 
-zstyle :compinstall filename "$HOME/.zshrc"
-autoload -Uz compinit
-compinit
+        zstyle :compinstall filename "$HOME/.zshrc"
+        autoload -Uz compinit
+        compinit
 
-eval "$(direnv hook zsh)"
+        eval "$(direnv hook zsh)"
 
-eval "$(env /opt/homebrew/bin/brew shellenv)"
+        eval "$(env /opt/homebrew/bin/brew shellenv)"
 
-export PNPM_HOME="$HOME/.local/share/pnpm"
-export PATH="$PNPM_HOME:$PATH"
-	  '';
+        export PNPM_HOME="$HOME/.local/share/pnpm"
+        export PATH="$PNPM_HOME:$PATH"
+        	  '';
     };
 
   };
