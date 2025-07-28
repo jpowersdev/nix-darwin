@@ -35,8 +35,7 @@
     casks =
       let
         packages = [
-          "arc"
-          # "thebrowsercompany-dia"
+          "thebrowsercompany-dia"
           "betterdisplay"
           "bruno"
           "chatgpt"
@@ -53,10 +52,9 @@
           "keyboardcleantool"
           "linear-linear"
           "lm-studio"
-          "microsoft-office"
-          "microsoft-teams"
           "middleclick"
           "mongodb-compass"
+          "mountain-duck"
           "orbstack"
           "postico"
           "signal"
@@ -64,7 +62,6 @@
           "spotify"
           "steam"
           "stremio"
-          "sublime-merge"
           "syncthing"
           "telegram"
           "tuple"
@@ -72,8 +69,8 @@
           "via"
           "visual-studio-code@insiders"
           "warp"
+          "whatsapp"
           "xquartz"
-          "youtube-music"
           "zed@preview"
           "zoom"
         ];
