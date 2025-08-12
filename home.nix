@@ -39,6 +39,10 @@
       # html/css/json/eslint
       vscode-langservers-extracted
       eslint
+      # BEAM
+      elixir
+      elixir-ls
+      erlang
       # go
       go
       gopls
@@ -159,6 +163,7 @@
         kk = "kubectl";
         k = "kubectl -n expand";
         ks = "kubectl -n expand-staging";
+        claudeup = "pnpm up -g @anthropic-ai/claude-code";
       };
 
       initContent = ''
@@ -180,6 +185,8 @@
 
         export PNPM_HOME="$HOME/.local/share/pnpm"
         export PATH="$PNPM_HOME:$PATH"
+
+        export PATH="$HOME/.cabal/bin:$HOME/.ghcup/bin:$PATH"
         	  '';
     };
 
