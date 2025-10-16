@@ -15,6 +15,7 @@
       "derailed/k9s"
       "th-ch/youtube-music"
       "pulumi/tap"
+      "sst/tap"
     ];
 
     # `brew install`
@@ -22,6 +23,7 @@
       "aspell"
       "fileicon"
       "gstreamer"
+      "gh"
       "k9s"
       "kubectl"
       "libtool"
@@ -29,6 +31,7 @@
       "libomp"
       "pngpaste"
       "pulumi"
+      "sst/tap/opencode"
     ];
 
     # `brew install --cask`
@@ -39,15 +42,19 @@
           "bruno"
           "cursor"
           "discord"
+          "db-browser-for-sqlite"
           "firefox@developer-edition"
           "google-chrome"
+          "ghostty"
           "keepingyouawake"
           "keka"
           "kekaexternalhelper"
+          "lm-studio"
           "middleclick"
           "mountain-duck"
           "ngrok"
           "orbstack"
+          "obsidian"
           "postico"
           "signal"
           "slack@beta"
@@ -55,10 +62,12 @@
           "steam"
           "syncthing"
           "telegram"
+          "tabby"
           "tuple"
           "utm"
           "via"
-          "warp"
+          "visual-studio-code"
+          "vivaldi"
           "whatsapp"
           "xquartz"
           "zed@preview"

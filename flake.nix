@@ -14,17 +14,15 @@
       self,
       nix-darwin,
       home-manager,
-      nixpkgs,
       ...
     }:
     let
-
-      darwinNixpkgsConfig = {
-        config.allowUnfree = true;
-      };
+      system = "aarch64-darwin";
       configuration =
-        { pkgs, ... }:
+        { ... }:
         {
+          nixpkgs.config.allowUnfree = true;
+
           # Necessary for using flakes on this system.
           nix.settings.experimental-features = "nix-command flakes";
 
@@ -39,7 +37,7 @@
           system.stateVersion = 6;
 
           # The platform the configuration will be used on.
-          nixpkgs.hostPlatform = "aarch64-darwin";
+          nixpkgs.hostPlatform = system;
 
           nix.settings.trusted-users = [
             "root"
@@ -52,6 +50,7 @@
       # Build darwin flake using:
       # $ darwin-rebuild build --flake .#Jonathans-MacBook-Pro
       darwinConfigurations."Jonathans-MacBook-Pro" = nix-darwin.lib.darwinSystem {
+        inherit system;
         modules = [
           configuration
           ./system.nix
@@ -61,9 +60,7 @@
             home-manager = {
               useGlobalPkgs = true;
               useUserPackages = true;
-              extraSpecialArgs = {
-                inherit inputs;
-              };
+              extraSpecialArgs = { inherit inputs; };
               users.jpowers = {
                 home.stateVersion = "24.11";
                 imports = [ ./home.nix ];
