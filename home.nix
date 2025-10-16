@@ -195,7 +195,17 @@
         export PATH="$PNPM_HOME:$PATH"
 
         export PATH="$HOME/.cabal/bin:$HOME/.ghcup/bin:$PATH"
-        	  '';
+
+        # Allow Ctrl-z to toggle between suspend and resume
+        function Resume {
+          fg
+          zle push-input
+          BUFFER=""
+          zle accept-line
+        }
+        zle -N Resume
+        bindkey "^Z" Resume
+      '';
     };
 
     helix = {
