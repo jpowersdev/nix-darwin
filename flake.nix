@@ -10,7 +10,7 @@
   };
 
   outputs =
-    inputs@{
+    {
       self,
       nix-darwin,
       home-manager,
@@ -47,28 +47,14 @@
         };
     in
     {
-      # Build darwin flake using:
-      # $ darwin-rebuild build --flake .#Jonathans-MacBook-Pro
       darwinConfigurations."Jonathans-MacBook-Pro" = nix-darwin.lib.darwinSystem {
         inherit system;
         modules = [
           configuration
+          home-manager.darwinModules.home-manager
           ./system.nix
           ./brew.nix
-          home-manager.darwinModules.home-manager
-          {
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              extraSpecialArgs = { inherit inputs; };
-              users.jpowers = {
-                home.stateVersion = "24.11";
-                imports = [ ./home.nix ];
-              };
-            };
-            users.users.jpowers.home = "/Users/jpowers";
-            system.primaryUser = "jpowers";
-          }
+          ./home.nix
         ];
       };
     };

@@ -13,7 +13,6 @@
     taps = [
       "mongodb/brew"
       "derailed/k9s"
-      "th-ch/youtube-music"
       "pulumi/tap"
       "sst/tap"
     ];
