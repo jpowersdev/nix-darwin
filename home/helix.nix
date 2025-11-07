@@ -10,8 +10,19 @@
 
     settings = {
       theme = "monokai_soda";
+      editor = {
+        line-number = "relative";
+        mouse = true;
+        completion-timeout = 100;
+        color-modes = true;
+      };
       editor.file-picker = {
         hidden = false;
+      };
+      editor.cursor-shape = {
+        insert = "bar";
+        normal = "block";
+        select = "underline";
       };
       keys.normal = {
         "C-g" = [
@@ -34,6 +45,14 @@
       biome = {
         command = "biome";
         args = [ "lsp-proxy" ];
+      };
+      typescript-language-server = {
+        command = "typescript-language-server";
+        args = ["--stdio"];
+        config = {
+          hostInfo = "helix";
+          typescript.tsserver.maxTsServerMemory = 8192;
+        };
       };
     };
     languages.language = [

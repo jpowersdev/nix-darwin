@@ -5,6 +5,7 @@
 {
   imports = [
     ./helix.nix
+    ./commands/git-watch.nix
   ];
 
   home = {
@@ -12,6 +13,7 @@
       bat
       byobu
       fastfetch
+      flyctl
       htop
       ncdu
       ollama
@@ -23,8 +25,8 @@
       tilt
       tree
       unzip
+      watch
       xz
-      yazi
       zip
       # devtools
       awscli2
@@ -112,14 +114,20 @@
     git = {
       enable = true;
       lfs.enable = true;
-      delta.enable = true;
-      userName = "Jonathan Powers";
-      userEmail = "jonathan@expand.ai";
-      extraConfig = {
+      settings = {
         init.defaultBranch = "main";
         push.autoSetupRemote = true;
         pull.rebase = true;
+        user = {
+          name = "Jonathan Powers";
+          email = "jonathan@expand.ai";
+        };
       };
+    };
+
+    delta = {
+      enable = true;
+      enableGitIntegration = true;
     };
 
     lazygit = {
@@ -210,8 +218,22 @@
       '';
     };
 
-    kitty = {
+    yazi = {
       enable = true;
+      settings = {
+        manager = {
+          sort_sensitive = true;
+        };
+      };
+    };
+
+    zed-editor = {
+      enable = true;
+      themes = {
+        mode = "system";
+        light = "macOS Classic";
+        dark = "Dracula";
+      };
     };
   };
 }

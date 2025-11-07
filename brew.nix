@@ -59,7 +59,7 @@
           "slack@beta"
           "spotify"
           "steam"
-          "syncthing"
+          "syncthing-app"
           "telegram"
           "tabby"
           "tuple"
@@ -69,7 +69,6 @@
           "vivaldi"
           "whatsapp"
           "xquartz"
-          "zed@preview"
           "zoom"
         ];
       in

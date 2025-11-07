@@ -9,7 +9,7 @@
   home.activation = {
     checkAppManagementPermission =
       let
-        sudo = lib.getExe' pkgs.darwin.sudo "sudo";
+        sudo = "/usr/bin/sudo";
         touch = lib.getExe' pkgs.coreutils "touch";
       in
       lib.hm.dag.entryBefore [ "linkApps" ] ''
