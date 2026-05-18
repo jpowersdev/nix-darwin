@@ -39,6 +39,7 @@
       ripgrep
       sops
       sqlfluff
+      terraform
       # bash
       bash-language-server
       shfmt
@@ -94,6 +95,10 @@
       # rust-analyzer-nightly
       yamlfmt
       yaml-language-server
+      # AI coding agents (https://github.com/numtide/llm-agents.nix)
+      llm-agents.pi
+      llm-agents.codex
+      llm-agents.claude-code
     ];
   };
 
@@ -181,7 +186,6 @@
         kk = "kubectl";
         k = "kubectl -n expand";
         ks = "kubectl -n expand-staging";
-        claudeup = "pnpm up -g @anthropic-ai/claude-code";
       };
 
       initContent = ''

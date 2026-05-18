@@ -1,10 +1,12 @@
 { inputs, ... }:
 {
+  nixpkgs.overlays = [ inputs.llm-agents.overlays.default ];
+
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
     extraSpecialArgs = { inherit inputs; };
-    users.jpowers = {
+    users.jonathan = {
       home.stateVersion = "24.11";
       imports = [
         ./home/darwin.nix
@@ -12,6 +14,6 @@
       ];
     };
   };
-  users.users.jpowers.home = "/Users/jpowers";
-  system.primaryUser = "jpowers";
+  users.users.jonathan.home = "/Users/jonathan";
+  system.primaryUser = "jonathan";
 }

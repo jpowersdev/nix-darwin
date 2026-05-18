@@ -1,16 +1,23 @@
 {
   description = "Example nix-darwin system flake";
 
+  nixConfig = {
+    extra-substituters = [ "https://cache.numtide.com" ];
+    extra-trusted-public-keys = [
+      "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g="
+    ];
+  };
+
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     nix-darwin.url = "github:nix-darwin/nix-darwin/master";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    llm-agents.url = "github:numtide/llm-agents.nix";
   };
 
-  outputs =
-    {
+  outputs = inputs@{
       self,
       nix-darwin,
       home-manager,
@@ -41,7 +48,7 @@
 
           nix.settings.trusted-users = [
             "root"
-            "jpowers"
+            "jonathan"
             "@admin"
           ];
         };
@@ -49,6 +56,7 @@
     {
       darwinConfigurations."Jonathans-MacBook-Pro" = nix-darwin.lib.darwinSystem {
         inherit system;
+        specialArgs = { inherit inputs; };
         modules = [
           configuration
           home-manager.darwinModules.home-manager
