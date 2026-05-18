@@ -26,15 +26,19 @@
     let
       system = "aarch64-darwin";
       configuration =
-        { ... }:
+        { pkgs, ... }:
         {
           nixpkgs.config.allowUnfree = true;
 
-          # Necessary for using flakes on this system.
-          nix.settings.experimental-features = "nix-command flakes";
+          # Let nix-darwin manage the Lix installation and /etc/nix/nix.conf.
+          nix.enable = true;
+          nix.package = pkgs.lix;
 
-          # Allow determinate nix to manage nix install
-          nix.enable = false;
+          # Necessary for using `nix` subcommands and flakes.
+          nix.settings.experimental-features = [
+            "nix-command"
+            "flakes"
+          ];
 
           # Set Git commit hash for darwin-version.
           system.configurationRevision = self.rev or self.dirtyRev or null;

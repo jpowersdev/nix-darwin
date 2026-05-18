@@ -45,6 +45,7 @@
       shfmt
       # html/css/json/eslint
       vscode-langservers-extracted
+      biome
       eslint
       # BEAM
       elixir
