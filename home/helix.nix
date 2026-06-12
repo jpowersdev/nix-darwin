@@ -3,6 +3,42 @@
   pkgs,
   ...
 }:
+let
+  mkProjectTool =
+    name: fallback:
+    pkgs.writeShellScriptBin "${name}-flex" ''
+      set -euo pipefail
+
+      dir="$PWD"
+      yarn_root=""
+
+      while true; do
+        if [ -x "$dir/node_modules/.bin/${name}" ]; then
+          exec "$dir/node_modules/.bin/${name}" "$@"
+        fi
+
+        if [ -f "$dir/yarn.lock" ]; then
+          yarn_root="$dir"
+        fi
+
+        if [ "$dir" = "/" ]; then
+          break
+        fi
+
+        dir="$(dirname "$dir")"
+      done
+
+      if [ -n "$yarn_root" ] && command -v yarn >/dev/null 2>&1; then
+        cd "$yarn_root"
+        exec yarn exec ${name} "$@"
+      fi
+
+      exec ${lib.getExe fallback} "$@"
+    '';
+
+  oxlint = mkProjectTool "oxlint" pkgs.oxlint;
+  oxfmt = mkProjectTool "oxfmt" pkgs.oxfmt;
+in
 {
   programs.helix = {
     enable = true;
@@ -42,13 +78,13 @@
       };
     };
     languages.language-server = {
-      biome = {
-        command = "biome";
-        args = [ "lsp-proxy" ];
+      oxlint = {
+        command = lib.getExe oxlint;
+        args = [ "--lsp" ];
       };
       typescript-language-server = {
         command = "typescript-language-server";
-        args = ["--stdio"];
+        args = [ "--stdio" ];
         config = {
           hostInfo = "helix";
           typescript.tsserver.maxTsServerMemory = 8192;
@@ -63,9 +99,16 @@
             name = "typescript-language-server";
             except-features = [ "format" ];
           }
-          "biome"
+          "oxlint"
         ];
         auto-format = true;
+        formatter = {
+          command = lib.getExe oxfmt;
+          args = [
+            "--stdin-filepath"
+            "%{buffer_name}"
+          ];
+        };
       }
       {
         name = "javascript";
@@ -74,9 +117,16 @@
             name = "typescript-language-server";
             except-features = [ "format" ];
           }
-          "biome"
+          "oxlint"
         ];
         auto-format = true;
+        formatter = {
+          command = lib.getExe oxfmt;
+          args = [
+            "--stdin-filepath"
+            "%{buffer_name}"
+          ];
+        };
       }
       {
         name = "tsx";
@@ -85,9 +135,16 @@
             name = "typescript-language-server";
             except-features = [ "format" ];
           }
-          "biome"
+          "oxlint"
         ];
         auto-format = true;
+        formatter = {
+          command = lib.getExe oxfmt;
+          args = [
+            "--stdin-filepath"
+            "%{buffer_name}"
+          ];
+        };
       }
       {
         name = "jsx";
@@ -96,9 +153,16 @@
             name = "typescript-language-server";
             except-features = [ "format" ];
           }
-          "biome"
+          "oxlint"
         ];
         auto-format = true;
+        formatter = {
+          command = lib.getExe oxfmt;
+          args = [
+            "--stdin-filepath"
+            "%{buffer_name}"
+          ];
+        };
       }
       {
         name = "json";
@@ -107,7 +171,6 @@
             name = "vscode-json-language-server";
             except-features = [ "format" ];
           }
-          "biome"
         ];
         auto-format = true;
       }

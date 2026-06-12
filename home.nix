@@ -1,15 +1,17 @@
 { inputs, ... }:
 {
-  nixpkgs.overlays = [ inputs.llm-agents.overlays.default ];
+  nixpkgs.overlays = [
+    inputs.llm-agents.overlays.default
+    (import ./overlays)
+  ];
 
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
     extraSpecialArgs = { inherit inputs; };
     users.jonathan = {
-      home.stateVersion = "24.11";
+      home.stateVersion = "26.05";
       imports = [
-        ./home/darwin.nix
         ./home/packages.nix
       ];
     };

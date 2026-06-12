@@ -16,8 +16,6 @@
     ];
   };
 
-  services.tailscale.enable = true;
-
   programs = {
     bash.enable = true;
     zsh.enable = true;

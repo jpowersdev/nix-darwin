@@ -4,8 +4,10 @@
 }:
 {
   imports = [
+    ./ghostty.nix
     ./helix.nix
     ./commands/git-watch.nix
+    ./commands/notion.nix
   ];
 
   home = {
@@ -18,6 +20,7 @@
       ncdu
       ollama
       p7zip
+      poppler-utils
       pinentry_mac
       qmk
       speedtest-cli
@@ -26,6 +29,7 @@
       tree
       unzip
       watch
+      willow-voice
       xz
       zip
       # devtools
@@ -45,7 +49,6 @@
       shfmt
       # html/css/json/eslint
       vscode-langservers-extracted
-      biome
       eslint
       # BEAM
       elixir
@@ -63,6 +66,8 @@
       typescript-language-server
       typescript
       graphviz
+      # haskell
+      ghc
       # latex
       pandoc
       texliveFull
@@ -107,14 +112,10 @@
     ssh = {
       enable = true;
       enableDefaultConfig = false;
-      matchBlocks = {
-        "*" = {
-          forwardAgent = true;
-        };
+      settings."*" = {
+        ForwardAgent = true;
+        AddKeysToAgent = "yes";
       };
-      extraConfig = ''
-        AddKeysToAgent yes
-      '';
     };
 
     git = {
@@ -126,7 +127,7 @@
         pull.rebase = true;
         user = {
           name = "Jonathan Powers";
-          email = "jonathan@expand.ai";
+          email = "jonathan.powers@vitalize.care";
         };
       };
     };

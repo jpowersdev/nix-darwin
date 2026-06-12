@@ -1,13 +1,6 @@
 {
   description = "Example nix-darwin system flake";
 
-  nixConfig = {
-    extra-substituters = [ "https://cache.numtide.com" ];
-    extra-trusted-public-keys = [
-      "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g="
-    ];
-  };
-
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     nix-darwin.url = "github:nix-darwin/nix-darwin/master";
@@ -17,7 +10,8 @@
     llm-agents.url = "github:numtide/llm-agents.nix";
   };
 
-  outputs = inputs@{
+  outputs =
+    inputs@{
       self,
       nix-darwin,
       home-manager,
@@ -34,11 +28,25 @@
           nix.enable = true;
           nix.package = pkgs.lix;
 
-          # Necessary for using `nix` subcommands and flakes.
-          nix.settings.experimental-features = [
-            "nix-command"
-            "flakes"
-          ];
+          nix.settings = {
+            # Necessary for using `nix` subcommands and flakes.
+            experimental-features = [
+              "nix-command"
+              "flakes"
+            ];
+
+            # Trust the Numtide cache system-wide instead of prompting via flake nixConfig.
+            extra-substituters = [ "https://cache.numtide.com" ];
+            extra-trusted-public-keys = [
+              "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g="
+            ];
+
+            trusted-users = [
+              "root"
+              "jonathan"
+              "@admin"
+            ];
+          };
 
           # Set Git commit hash for darwin-version.
           system.configurationRevision = self.rev or self.dirtyRev or null;
@@ -50,11 +58,6 @@
           # The platform the configuration will be used on.
           nixpkgs.hostPlatform = system;
 
-          nix.settings.trusted-users = [
-            "root"
-            "jonathan"
-            "@admin"
-          ];
         };
     in
     {

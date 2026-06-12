@@ -7,6 +7,7 @@
     onActivation = {
       autoUpdate = true;
       cleanup = "zap";
+      extraFlags = [ "--force-cleanup" ];
       upgrade = true;
     };
 
@@ -15,6 +16,7 @@
       "derailed/k9s"
       "pulumi/tap"
       "sst/tap"
+      "schpet/tap"
     ];
 
     # `brew install`
@@ -31,6 +33,7 @@
       "pngpaste"
       "pulumi"
       "sst/tap/opencode"
+      "schpet/tap/linear"
     ];
 
     # `brew install --cask`
@@ -39,15 +42,19 @@
         packages = [
           "betterdisplay"
           "bruno"
+          "conductor"
           "cursor"
           "discord"
           "db-browser-for-sqlite"
           "firefox@developer-edition"
           "google-chrome"
+          "granola"
           "ghostty"
           "keepingyouawake"
+          "jetbrains-toolbox"
           "keka"
           "kekaexternalhelper"
+          "lens"
           "lm-studio"
           "middleclick"
           "mountain-duck"
@@ -60,6 +67,7 @@
           "spotify"
           "steam"
           "syncthing-app"
+          "tailscale"
           "telegram"
           "tabby"
           "tuple"
