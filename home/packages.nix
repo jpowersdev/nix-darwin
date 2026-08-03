@@ -1,16 +1,25 @@
 {
   pkgs,
+  work,
   ...
 }:
 {
   imports = [
     ./ghostty.nix
     ./helix.nix
+    ./terraform.nix
     ./commands/git-watch.nix
     ./commands/notion.nix
+    ./commands/wt.nix
   ];
 
   home = {
+    # Preserve explicit environment overrides while providing profile defaults.
+    sessionVariablesExtra = ''
+      export WT_ORG="''${WT_ORG:-${work.githubOrg}}"
+      export WT_REPO="''${WT_REPO:-${work.repository}}"
+    '';
+
     packages = with pkgs; [
       bat
       byobu
@@ -23,9 +32,11 @@
       poppler-utils
       pinentry_mac
       qmk
+      rclone
       speedtest-cli
       testdisk
       tilt
+      terminal-notifier
       tree
       unzip
       watch
@@ -33,16 +44,23 @@
       xz
       zip
       # devtools
+      argocd
       awscli2
+      ssm-session-manager-plugin
+      buildkite-cli
       fd
       fzf
       git-trim
       lima
       jq
       postgresql
+      pscale
       ripgrep
+      sentry-cli
       sops
       sqlfluff
+      supabase-cli
+      temporal-cli
       terraform
       # bash
       bash-language-server
@@ -51,9 +69,9 @@
       vscode-langservers-extracted
       eslint
       # BEAM
-      elixir
+      beamPackages.elixir
       elixir-ls
-      erlang
+      beamPackages.erlang
       # go
       go
       gopls
@@ -76,13 +94,14 @@
       luaPackages.lua-lsp
       stylua
       # markdown
+      glow
       marksman
       # nix
       direnv
       hydra-check
       nil
       nixd
-      nixfmt-rfc-style
+      nixfmt
       # nodejs
       nodejs
       yarn
@@ -90,7 +109,6 @@
       fpc
       # python
       black
-      python311
       pyright
       uv
       # rust
@@ -127,7 +145,7 @@
         pull.rebase = true;
         user = {
           name = "Jonathan Powers";
-          email = "jonathan.powers@vitalize.care";
+          email = "jon@powers.dev";
         };
       };
     };
@@ -175,19 +193,13 @@
       enable = true;
 
       shellAliases = {
-        ls = "exa";
-        dc = "docker-compose";
-        ga = "git add";
-        gm = "git commit -m";
-        gs = "git status";
-        gb = "git checkout -b";
-        gd = "git diff";
-        gst = "git stash --include-untracked";
-        f = "nvim ~/.zshrc";
+        ls = "eza";
+        dc = "docker compose";
         cat = "bat";
-        kk = "kubectl";
-        k = "kubectl -n expand";
-        ks = "kubectl -n expand-staging";
+        k = "kubectl";
+        mcp-cli = "npx -y @wong2/mcp-cli";
+        granola-mcp = "npx -y @wong2/mcp-cli --url https://mcp.granola.ai/mcp";
+        posthog = "npx -y @posthog/cli";
       };
 
       initContent = ''
@@ -209,6 +221,9 @@
 
         export PNPM_HOME="$HOME/.local/share/pnpm"
         export PATH="$PNPM_HOME:$PATH"
+
+        export BUN_INSTALL="$HOME/.bun"
+        export PATH="$BUN_INSTALL/bin:$PATH"
 
         export PATH="$HOME/.cabal/bin:$HOME/.ghcup/bin:$PATH"
 

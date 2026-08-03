@@ -19,6 +19,13 @@
     }:
     let
       system = "aarch64-darwin";
+
+      # Current job settings. Update this block when changing jobs.
+      work = {
+        githubOrg = "vitalizecare";
+        repository = "web-app";
+      };
+
       configuration =
         { pkgs, ... }:
         {
@@ -27,6 +34,9 @@
           # Let nix-darwin manage the Lix installation and /etc/nix/nix.conf.
           nix.enable = true;
           nix.package = pkgs.lix;
+
+          # Flake-based lookup is sufficient; omit the nonexistent legacy root channel.
+          nix.nixPath = [ "nixpkgs=flake:nixpkgs" ];
 
           nix.settings = {
             # Necessary for using `nix` subcommands and flakes.
@@ -63,7 +73,7 @@
     {
       darwinConfigurations."Jonathans-MacBook-Pro" = nix-darwin.lib.darwinSystem {
         inherit system;
-        specialArgs = { inherit inputs; };
+        specialArgs = { inherit inputs work; };
         modules = [
           configuration
           home-manager.darwinModules.home-manager

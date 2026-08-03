@@ -12,11 +12,14 @@
     };
 
     taps = [
-      "mongodb/brew"
-      "derailed/k9s"
-      "pulumi/tap"
-      "sst/tap"
-      "schpet/tap"
+      {
+        name = "anomalyco/tap";
+        trusted = true;
+      }
+      {
+        name = "schpet/tap";
+        trusted = true;
+      }
     ];
 
     # `brew install`
@@ -24,6 +27,8 @@
       "aspell"
       "fileicon"
       "gstreamer"
+      "sdl3"
+      "sdl2-compat"
       "gh"
       "k9s"
       "kubectl"
@@ -32,7 +37,7 @@
       "libomp"
       "pngpaste"
       "pulumi"
-      "sst/tap/opencode"
+      "anomalyco/tap/opencode"
       "schpet/tap/linear"
     ];
 
@@ -44,10 +49,16 @@
           "bruno"
           "conductor"
           "cursor"
-          "discord"
+          # Discord has its own updater; forcing greedy Homebrew cask upgrades can leave
+          # the app's internal updater in an inconsistent installer state.
+          {
+            name = "discord";
+            greedy = false;
+          }
           "db-browser-for-sqlite"
           "firefox@developer-edition"
           "google-chrome"
+          "google-drive"
           "granola"
           "ghostty"
           "keepingyouawake"
@@ -67,7 +78,7 @@
           "spotify"
           "steam"
           "syncthing-app"
-          "tailscale"
+          "tailscale-app"
           "telegram"
           "tabby"
           "tuple"

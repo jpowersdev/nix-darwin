@@ -1,14 +1,15 @@
-{ inputs, ... }:
+{ inputs, work, ... }:
 {
   nixpkgs.overlays = [
-    inputs.llm-agents.overlays.default
+    inputs.llm-agents.overlays.shared-nixpkgs
     (import ./overlays)
   ];
 
   home-manager = {
+    backupFileExtension = "backup";
     useGlobalPkgs = true;
     useUserPackages = true;
-    extraSpecialArgs = { inherit inputs; };
+    extraSpecialArgs = { inherit inputs work; };
     users.jonathan = {
       home.stateVersion = "26.05";
       imports = [
