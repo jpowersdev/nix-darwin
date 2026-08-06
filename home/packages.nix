@@ -127,6 +127,11 @@
   };
 
   programs = {
+    gh = {
+      enable = true;
+      extensions = [ pkgs.gh-stack ];
+    };
+
     ssh = {
       enable = true;
       enableDefaultConfig = false;

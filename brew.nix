@@ -29,7 +29,6 @@
       "gstreamer"
       "sdl3"
       "sdl2-compat"
-      "gh"
       "k9s"
       "kubectl"
       "libtool"
