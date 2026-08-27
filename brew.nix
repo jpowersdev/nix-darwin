@@ -5,15 +5,16 @@
     enable = true;
 
     onActivation = {
-      autoUpdate = true;
-      cleanup = "zap";
-      extraFlags = [ "--force-cleanup" ];
-      upgrade = true;
+      # Keep rebuilds deterministic and perform Homebrew upgrades explicitly.
+      autoUpdate = false;
+      # Preserve application data when moving casks to Nix.
+      cleanup = "uninstall";
+      upgrade = false;
     };
 
     taps = [
       {
-        name = "anomalyco/tap";
+        name = "incident-io/tap";
         trusted = true;
       }
       {
@@ -24,82 +25,49 @@
 
     # `brew install`
     brews = [
-      "aspell"
       "fileicon"
       "gstreamer"
       "sdl3"
       "sdl2-compat"
-      "k9s"
-      "kubectl"
       "libtool"
       "llvm"
       "libomp"
-      "pngpaste"
-      "pulumi"
-      "anomalyco/tap/opencode"
+      "incident-io/tap/inc"
       "schpet/tap/linear"
     ];
 
     # `brew install --cask`
-    casks =
-      let
-        packages = [
-          "betterdisplay"
-          "bruno"
-          "conductor"
-          "cursor"
-          # Discord has its own updater; forcing greedy Homebrew cask upgrades can leave
-          # the app's internal updater in an inconsistent installer state.
-          {
-            name = "discord";
-            greedy = false;
-          }
-          "db-browser-for-sqlite"
-          "firefox@developer-edition"
-          "google-chrome"
-          "google-drive"
-          "granola"
-          "ghostty"
-          "keepingyouawake"
-          "jetbrains-toolbox"
-          "keka"
-          "kekaexternalhelper"
-          "lens"
-          "lm-studio"
-          "middleclick"
-          "mountain-duck"
-          "ngrok"
-          "orbstack"
-          "obsidian"
-          "postico"
-          "signal"
-          "slack@beta"
-          "spotify"
-          "steam"
-          "syncthing-app"
-          "tailscale-app"
-          "telegram"
-          "tabby"
-          "tuple"
-          "utm"
-          "via"
-          "visual-studio-code"
-          "vivaldi"
-          "whatsapp"
-          "xquartz"
-          "zoom"
-        ];
-      in
-      (map (
-        pkg:
-        if builtins.isString pkg then
-          {
-            name = pkg;
-            greedy = true;
-          }
-        else
-          pkg
-      ) packages)
-      ++ [ ];
+    casks = [
+      "betterdisplay"
+      "conductor"
+      "google-drive"
+      "granola"
+      "ghostty"
+      "keepingyouawake"
+      "keka"
+      "kekaexternalhelper"
+      "middleclick"
+      "mountain-duck"
+      "orbstack"
+      # The pinned nixpkgs package currently fails to unpack its app bundle.
+      "obsidian"
+      "postico"
+      "slack@beta"
+      # The nixpkgs source archive is rate-limited by the Internet Archive.
+      "spotify"
+      "steam"
+      "syncthing-app"
+      "tailscale-app"
+      "telegram"
+      "tabby"
+      "tuple"
+      "utm"
+      "via"
+      "visual-studio-code"
+      "vivaldi"
+      "whatsapp"
+      "xquartz"
+      "zoom"
+    ];
   };
 }

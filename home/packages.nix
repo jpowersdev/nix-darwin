@@ -21,16 +21,22 @@
     '';
 
     packages = with pkgs; [
+      (aspellWithDicts (dicts: [ dicts.en ]))
       bat
       byobu
       fastfetch
       flyctl
       htop
+      k9s
+      kubectl
       ncdu
+      ngrok
       ollama
       p7zip
       poppler-utils
       pinentry_mac
+      pngpaste
+      pulumi
       qmk
       rclone
       speedtest-cli
@@ -124,6 +130,7 @@
       llm-agents.pi
       llm-agents.codex
       llm-agents.claude-code
+      llm-agents.opencode
     ];
   };
 

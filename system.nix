@@ -13,6 +13,19 @@
     systemPackages = with pkgs; [
       cachix
       zlib
+
+      # macOS applications packaged by nixpkgs.
+      bruno
+      code-cursor
+      discord
+      firefox-devedition
+      google-chrome
+      jetbrains-toolbox
+      lens
+      linear
+      lmstudio
+      signal-desktop
+      sqlitebrowser
     ];
   };
 
