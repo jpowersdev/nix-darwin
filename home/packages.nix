@@ -38,6 +38,7 @@
       tilt
       terminal-notifier
       tree
+      tuicr
       unzip
       watch
       willow-voice
